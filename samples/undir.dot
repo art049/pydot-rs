@@ -1,4 +1,4 @@
 graph graphname {
-    wwwa -- b -- c;
+    a -- b -- c;
     b -- d;
 }

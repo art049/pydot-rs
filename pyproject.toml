@@ -7,10 +7,14 @@ authors = ["Arthur Pastel <arthur.pastel@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.10"
 
-
-
 [tool.poetry.dev-dependencies]
 black = "^23.3.0"
+
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["maturin>=0.14,<0.15"]
+build-backend = "maturin"
+[tool.maturin]
+features = ["pyo3/extension-module"]
+# [build-system]
+# requires = ["poetry-core>=1.0.0"]
+# build-backend = "poetry.core.masonry.api"

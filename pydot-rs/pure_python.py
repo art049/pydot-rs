@@ -106,8 +106,3 @@ def parse_file(filepath: str) -> Graph:
         raise Exception("Unexpected token after right bracket")
 
     return Graph(is_directed, nodes, dict(adjacency))
-
-
-if __name__ == "__main__":
-    graph = parse_file(sys.argv[1])
-    print(graph)
