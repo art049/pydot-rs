@@ -93,7 +93,7 @@ impl Parser {
                 self.current_chain.push(index);
                 self.state = ParserState::ExpectEdgeOrSemicolon;
             }
-            (ParserState::ExpectEdgeOrSemicolon, Token::UndirectedEdgeOp) => {
+            (ParserState::ExpectEdgeOrSemicolon, Token::Edge) => {
                 self.state = ParserState::ExpectNodeName;
             }
             (ParserState::ExpectEdgeOrSemicolon, Token::Semicolon) => {

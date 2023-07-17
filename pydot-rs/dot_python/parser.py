@@ -76,7 +76,7 @@ class Parser:
 
             case (
                 ParserState.ExpectEdgeOrSemicolon,
-                BasicToken.UNDIRECTED_EDGE_OP,
+                BasicToken.EDGE,
             ):
                 self.state = ParserState.ExpectNodeName
 

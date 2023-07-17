@@ -9,7 +9,7 @@ class BasicToken(Enum):
     LEFT_BRACKET = auto()
     RIGHT_BRACKET = auto()
     SEMICOLON = auto()
-    UNDIRECTED_EDGE_OP = auto()
+    EDGE = auto()
 
 
 @dataclass
@@ -31,7 +31,7 @@ def word_to_token(word: str) -> Token:
         case ";":
             return BasicToken.SEMICOLON
         case "--":
-            return BasicToken.UNDIRECTED_EDGE_OP
+            return BasicToken.EDGE
         case _:
             return IdentifierToken(word)
 

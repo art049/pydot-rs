@@ -7,8 +7,7 @@ pub enum Token {
     LeftBracket,
     RightBracket,
     Semicolon,
-    DirectedEdgeOp,
-    UndirectedEdgeOp,
+    Edge,
     Identifier(String),
 }
 
@@ -19,8 +18,7 @@ pub fn word_to_token(word: &str) -> Token {
         "{" => Token::LeftBracket,
         "}" => Token::RightBracket,
         ";" => Token::Semicolon,
-        "->" => Token::DirectedEdgeOp,
-        "--" => Token::UndirectedEdgeOp,
+        "--" => Token::Edge,
         _ => Token::Identifier(word.to_string()),
     }
 }
