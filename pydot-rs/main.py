@@ -1,4 +1,7 @@
 import rustimport.import_hook  # noqa: F401 # type: ignore
+
+rustimport.settings.compile_release_binaries = True
+
 import sys
 import dot_python
 import dot_rust

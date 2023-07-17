@@ -1,0 +1,16 @@
+[package]
+name = "dot_rust"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "dot_rust"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.18.3", features = ["extension-module"] }
+anyhow = "1.0.71"
+regex = "1.8.1"
+
+[dev-dependencies]
+insta = "1.29.0"
