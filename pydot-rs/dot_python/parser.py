@@ -35,10 +35,14 @@ class Parser:
         self.nodes.append(name)
         return node_idx
 
+    def add_undirected_edge(self, node1: int, node2: int):
+        self.adjacency[node1].append(node2)
+        self.adjacency[node2].append(node1)
+
     def persist_current_chain(self):
         """Persist the current chain of nodes as a path in the graph"""
         for i in range(len(self.current_chain) - 1):
-            self.adjacency[self.current_chain[i]].append(self.current_chain[i + 1])
+            self.add_undirected_edge(self.current_chain[i], self.current_chain[i + 1])
         self.current_chain = []
 
     def parse(self, tokens: Iterable[Token]) -> Graph:

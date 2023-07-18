@@ -41,18 +41,20 @@ impl Parser {
         *self.node_map.entry(name.to_string()).or_insert_with(|| {
             let index = self.nodes.len();
             self.nodes.push(name.to_string());
-            self.adjacency.insert(index, Vec::new());
             index
         })
+    }
+
+    /// Add an edge between two nodes, in both directions
+    fn add_undirected_edge(&mut self, a: usize, b: usize) {
+        self.adjacency.entry(a).or_insert_with(Vec::new).push(b);
+        self.adjacency.entry(b).or_insert_with(Vec::new).push(a);
     }
 
     /// Persist the current chain of nodes as a path in the graph
     fn persist_current_chain(&mut self) {
         for i in 0..self.current_chain.len() - 1 {
-            self.adjacency
-                .get_mut(&self.current_chain[i])
-                .unwrap()
-                .push(self.current_chain[i + 1]);
+            self.add_undirected_edge(self.current_chain[i], self.current_chain[i + 1]);
         }
         self.current_chain.clear();
     }
