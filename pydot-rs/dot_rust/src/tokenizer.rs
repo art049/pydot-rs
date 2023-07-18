@@ -3,7 +3,6 @@ use regex::Regex;
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Token {
     Graph,
-    Digraph,
     LeftBracket,
     RightBracket,
     Semicolon,
@@ -14,7 +13,6 @@ pub enum Token {
 pub fn word_to_token(word: &str) -> Token {
     match word {
         "graph" => Token::Graph,
-        "digraph" => Token::Digraph,
         "{" => Token::LeftBracket,
         "}" => Token::RightBracket,
         ";" => Token::Semicolon,
@@ -24,6 +22,7 @@ pub fn word_to_token(word: &str) -> Token {
 }
 
 pub fn split_words(text: &str) -> Vec<&str> {
+    //TODO: lazy load regex once
     let re = Regex::new(r"(\s+|;)").unwrap();
     let mut words: Vec<&str> = Vec::new();
     let mut prev_end = 0;

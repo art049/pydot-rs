@@ -3,11 +3,10 @@ use pyo3::prelude::*;
 
 use std::collections::HashMap;
 
-use parser::Parser;
-use tokenizer::{split_words, word_to_token};
-
 mod parser;
+use parser::Parser;
 mod tokenizer;
+use tokenizer::{split_words, word_to_token};
 
 #[pyclass]
 #[derive(Debug)]

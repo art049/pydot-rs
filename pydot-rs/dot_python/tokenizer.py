@@ -5,11 +5,11 @@ from typing import Iterable
 
 
 class BasicToken(Enum):
-    GRAPH = auto()
-    LEFT_BRACKET = auto()
-    RIGHT_BRACKET = auto()
-    SEMICOLON = auto()
-    EDGE = auto()
+    Graph = auto()
+    LeftBracket = auto()
+    RightBracket = auto()
+    Semicolon = auto()
+    Edge = auto()
 
 
 @dataclass
@@ -23,15 +23,15 @@ Token = BasicToken | IdentifierToken
 def word_to_token(word: str) -> Token:
     match word:
         case "graph":
-            return BasicToken.GRAPH
+            return BasicToken.Graph
         case "{":
-            return BasicToken.LEFT_BRACKET
+            return BasicToken.LeftBracket
         case "}":
-            return BasicToken.RIGHT_BRACKET
+            return BasicToken.RightBracket
         case ";":
-            return BasicToken.SEMICOLON
+            return BasicToken.Semicolon
         case "--":
-            return BasicToken.EDGE
+            return BasicToken.Edge
         case _:
             return IdentifierToken(word)
 

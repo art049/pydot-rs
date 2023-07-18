@@ -24,7 +24,7 @@ class Parser:
 
         self.graph_name: str | None = None
         self.nodes: list[str] = []
-        self.adjacency: defaultdict[int, list[int]] = defaultdict(list)
+        self.adjacency = defaultdict[str, list[int]](list)
 
     def get_node_index(self, name: str) -> int:
         """Get the index of a node, creating it if it doesn't exist"""
@@ -57,12 +57,12 @@ class Parser:
         """Parse a single token"""
         match (self.state, token):
             # Graph header (type, name, bracket)
-            case (ParserState.Start, BasicToken.GRAPH):
+            case (ParserState.Start, BasicToken.Graph):
                 self.state = ParserState.ExpectGraphName
             case (ParserState.ExpectGraphName, IdentifierToken(name)):
                 self.graph_name = name
                 self.state = ParserState.ExpectLBracket
-            case (ParserState.ExpectLBracket, BasicToken.LEFT_BRACKET):
+            case (ParserState.ExpectLBracket, BasicToken.LeftBracket):
                 self.state = ParserState.ExpectNodeNameOrRBracket
 
             # Graph body (nodes and edges)
@@ -76,16 +76,16 @@ class Parser:
 
             case (
                 ParserState.ExpectEdgeOrSemicolon,
-                BasicToken.EDGE,
+                BasicToken.Edge,
             ):
                 self.state = ParserState.ExpectNodeName
 
-            case (ParserState.ExpectEdgeOrSemicolon, BasicToken.SEMICOLON):
+            case (ParserState.ExpectEdgeOrSemicolon, BasicToken.Semicolon):
                 self.persist_current_chain()
                 self.state = ParserState.ExpectNodeNameOrRBracket
 
             # Graph end (right bracket)
-            case (ParserState.ExpectNodeNameOrRBracket, BasicToken.RIGHT_BRACKET):
+            case (ParserState.ExpectNodeNameOrRBracket, BasicToken.RightBracket):
                 self.state = ParserState.End
 
             # Error cases (unexpected tokens)
