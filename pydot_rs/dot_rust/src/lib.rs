@@ -8,11 +8,14 @@ use parser::Parser;
 mod tokenizer;
 use tokenizer::{split_words, word_to_token};
 
-#[pyclass]
 #[derive(Debug)]
+#[pyclass]
 pub struct Graph {
+    #[pyo3(get)]
     pub graph_name: String,
+    #[pyo3(get)]
     pub nodes: Vec<String>,
+    #[pyo3(get)]
     pub adjacency: HashMap<usize, Vec<usize>>,
 }
 

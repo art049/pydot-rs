@@ -1,4 +1,4 @@
-graph graphname {
+graph BigGraph {
     722 -- 890;
     137 -- 942;
     135 -- 35;

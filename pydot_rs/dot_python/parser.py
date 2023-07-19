@@ -33,6 +33,7 @@ class Parser:
             return node_idx
         node_idx = len(self.nodes)
         self.nodes.append(name)
+        self.node_map[name] = node_idx
         return node_idx
 
     def add_undirected_edge(self, node1: int, node2: int):
@@ -95,3 +96,42 @@ class Parser:
             # Error cases (unexpected tokens)
             case _:
                 raise Exception(f"Unexpected token {token} in state {self.state}")
+
+
+def transition_function(state: ParserState, token: Token) -> ParserState:
+    match (state, token):
+        # Graph header (type, name, bracket)
+        case (ParserState.Start, BasicToken.GRAPH):
+            return ParserState.ExpectGraphName
+        case (ParserState.ExpectGraphName, IdentifierToken(name)):
+            self.graph_name = name
+            self.state = ParserState.ExpectLBracket
+        case (ParserState.ExpectLBracket, BasicToken.LEFT_BRACKET):
+            self.state = ParserState.ExpectNodeNameOrRBracket
+
+        # Graph body (nodes and edges)
+        case (
+            ParserState.ExpectNodeNameOrRBracket | ParserState.ExpectNodeName,
+            IdentifierToken(name),
+        ):
+            node_idx = self.get_node_index(name)
+            self.current_chain.append(node_idx)
+            self.state = ParserState.ExpectEdgeOrSemicolon
+
+        case (
+            ParserState.ExpectEdgeOrSemicolon,
+            BasicToken.EDGE,
+        ):
+            self.state = ParserState.ExpectNodeName
+
+        case (ParserState.ExpectEdgeOrSemicolon, BasicToken.SEMICOLON):
+            self.persist_current_chain()
+            self.state = ParserState.ExpectNodeNameOrRBracket
+
+        # Graph end (right bracket)
+        case (ParserState.ExpectNodeNameOrRBracket, BasicToken.RIGHT_BRACKET):
+            self.state = ParserState.End
+
+        # Error cases (unexpected tokens)
+        case _:
+            raise Exception(f"Unexpected token {token} in state {self.state}")

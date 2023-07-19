@@ -1,4 +1,4 @@
-graph graphname {
+graph MyCoolUndirectedGraph {
     a -- b -- c;
     b -- d;
 }

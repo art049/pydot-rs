@@ -1,6 +1,6 @@
 class Graph:
-    is_directed: bool
+    graph_name: str | None
     nodes: list[str]
-    adjacency: list[list[int]]
+    adjacency: dict[int, list[int]]
 
 def parse_file(filepath: str) -> Graph: ...
