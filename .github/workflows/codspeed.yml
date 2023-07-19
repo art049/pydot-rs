@@ -1,0 +1,44 @@
+name: codspeed
+
+on:
+  push:
+    branches:
+      - "main" # or "master"
+  pull_request:
+  # `workflow_dispatch` allows CodSpeed to trigger backtest
+  # performance analysis in order to generate initial data.
+  workflow_dispatch:
+
+jobs:
+  benchmarks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.12.0-beta.2"
+      - name: Setup the rust toolchain
+        uses: moonrepo/setup-rust@v0
+        with:
+          channel: stable
+
+      - name: Install poetry
+        run: |
+          pip install poetry
+          pip install setuptools==67.8.0
+          poetry config virtualenvs.create false
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Prebuild the Rust module
+        run: poetry run python -m rustimport build --release
+
+      - name: Run benchmarks
+        uses: CodSpeedHQ/action@v1
+        with:
+          token: ${{ secrets.CODSPEED_TOKEN }}
+          run: poetry run pytest tests/ --codspeed
+        env:
+          RUSTIMPORT_RELEASE_MODE: "true"
