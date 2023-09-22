@@ -1,6 +1,6 @@
 # pydot-rs
 
-A simple DOT parser built for my talk [Building native Rust modules for Python](https://slides.com/art049/native-rust-modules-for-python)
+A simple DOT parser built for my talk Building native Rust modules for Python([video](https://www.youtube.com/watch?v=r2wCF5DjNJ4), [slides](https://slides.com/art049/native-rust-modules-for-python)).
 
 This contains two implementations of the same parser, one in pure Python and one as a Rust module bound to Python using [PyO3](https://github.com/PyO3/pyo3) and [rustimport](https://github.com/mityax/rustimport).
 
